@@ -1,3 +1,4 @@
+require 'pry'
 # Write your code below game_hash
 def game_hash
   {
@@ -126,4 +127,126 @@ def game_hash
   }
 end
 
-# Write code here
+
+def num_points_scored(player_name)
+    game_hash
+    points = nil
+    game_hash.each do |home_away, inner_hash| 
+       index = 0
+      
+       until index == inner_hash[:players].count 
+          if inner_hash[:players][index][:player_name] == player_name
+            points = inner_hash[:players][index][:points]
+            break
+          else
+            index +=1
+          end 
+        end
+    end
+    points
+end 
+
+def shoe_size(player_name) 
+  game_hash
+  size = nil
+  game_hash.each do |home_away, inner_hash|
+    index = 0 
+    until index == inner_hash[:players].count
+      if inner_hash[:players][index][:player_name] == player_name
+        size = inner_hash[:players][index][:shoe]
+        break
+      else 
+        index += 1 
+      end 
+    end 
+  end
+  size
+end 
+
+def team_colors(team_name)
+  game_hash
+  colors = nil
+  game_hash.each do |home_away, inner_hash|
+    if game_hash[home_away][:team_name] == team_name
+      colors = game_hash[home_away][:colors]
+    end 
+  end
+colors
+end 
+
+def team_names
+  game_hash
+  names = []
+  game_hash.each do |home_away, inner_hash|
+    names << game_hash[home_away][:team_name]
+  end 
+  names
+end 
+
+def player_numbers(team_name)
+  game_hash
+  team_numbers = []
+  game_hash.each do |home_away, inner_hash|
+    index = 0 
+    until index == game_hash[home_away][:players].count
+      if game_hash[home_away][:team_name] == team_name 
+      team_numbers << game_hash[home_away][:players][index][:number]
+      end 
+    index += 1
+    end
+  end
+  team_numbers
+end 
+
+def player_stats(player_name)
+  game_hash
+  stats = nil
+  game_hash.each do |home_away, inner_hash|
+    index = 0 
+    until index == inner_hash[:players].count 
+      if game_hash[home_away][:players][index][:player_name] == player_name
+        stats = game_hash[home_away][:players][index]
+        break 
+      else 
+        index += 1
+      end 
+    end 
+  end 
+ stats 
+end 
+
+def big_shoe_rebounds
+  game_hash
+  max_shoe = 0
+  player_rebounds = nil
+  game_hash.each do |home_away, inner_hash|
+    index = 0 
+    until index == game_hash[home_away][:players].count 
+    shoe = game_hash[home_away][:players][index][:shoe]
+      if shoe > max_shoe
+        max_shoe = shoe
+        player_rebounds = game_hash[home_away][:players][index][:rebounds]
+        index += 1
+      else 
+        index += 1
+      end 
+    end 
+  end 
+player_rebounds
+end 
+    
+
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
