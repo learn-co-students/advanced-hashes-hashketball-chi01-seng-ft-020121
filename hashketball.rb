@@ -127,113 +127,95 @@ def game_hash
   }
 end
 
-
 def num_points_scored(player_name)
-    game_hash
-    points = nil
-    game_hash.each do |home_away, inner_hash| 
-       index = 0
-      
-       until index == inner_hash[:players].count 
-          if inner_hash[:players][index][:player_name] == player_name
-            points = inner_hash[:players][index][:points]
-            break
-          else
-            index +=1
-          end 
-        end
-    end
-    points
-end 
-
-def shoe_size(player_name) 
   game_hash
-  size = nil
-  game_hash.each do |home_away, inner_hash|
-    index = 0 
-    until index == inner_hash[:players].count
-      if inner_hash[:players][index][:player_name] == player_name
-        size = inner_hash[:players][index][:shoe]
-        break
-      else 
-        index += 1 
+  points = nil
+  game_hash.each do |home_away, inner_hash_keys|
+    inner_hash_keys[:players].each do |player|
+      if player[:player_name] == player_name
+        points = player[:points]
+        break 
       end 
     end 
   end
-  size
+points
+end 
+
+def shoe_size(player_name)
+  game_hash
+  size = nil 
+  game_hash.each do |home_away, inner_hash_keys|
+    inner_hash_keys[:players].each do |player|
+      if player[:player_name] == player_name
+        size = player[:shoe]
+        break 
+      end 
+    end
+  end 
+  size 
 end 
 
 def team_colors(team_name)
   game_hash
   colors = nil
-  game_hash.each do |home_away, inner_hash|
-    if game_hash[home_away][:team_name] == team_name
-      colors = game_hash[home_away][:colors]
-    end 
+  
+  game_hash.each do |home_away, inner_hash_keys|
+      if inner_hash_keys[:team_name] == team_name
+        colors = inner_hash_keys[:colors]
+      end 
   end
-colors
+  colors 
 end 
 
 def team_names
   game_hash
-  names = []
-  game_hash.each do |home_away, inner_hash|
-    names << game_hash[home_away][:team_name]
-  end 
-  names
+  home = game_hash[:home][:team_name]
+  away = game_hash[:away][:team_name]
+  teams =[home, away]
 end 
 
 def player_numbers(team_name)
   game_hash
-  team_numbers = []
-  game_hash.each do |home_away, inner_hash|
-    index = 0 
-    until index == game_hash[home_away][:players].count
-      if game_hash[home_away][:team_name] == team_name 
-      team_numbers << game_hash[home_away][:players][index][:number]
+  player_numbers = []
+  game_hash.each do |home_away, inner_hash_keys|
+    if inner_hash_keys[:team_name] == team_name 
+      inner_hash_keys[:players].each do |player|
+        player_numbers << player[:number]
       end 
-    index += 1
-    end
+    end 
   end
-  team_numbers
+  player_numbers
 end 
 
 def player_stats(player_name)
-  game_hash
+  game_hash 
   stats = nil
-  game_hash.each do |home_away, inner_hash|
-    index = 0 
-    until index == inner_hash[:players].count 
-      if game_hash[home_away][:players][index][:player_name] == player_name
-        stats = game_hash[home_away][:players][index]
-        break 
-      else 
-        index += 1
+  game_hash.each do |home_away, inner_hash_keys|
+    inner_hash_keys[:players].each do |player|
+      if player[:player_name] == player_name 
+        stats = player
       end 
-    end 
-  end 
- stats 
-end 
+    end
+  end
+  stats
+end
 
 def big_shoe_rebounds
   game_hash
   max_shoe = 0
-  player_rebounds = nil
-  game_hash.each do |home_away, inner_hash|
-    index = 0 
-    until index == game_hash[home_away][:players].count 
-    shoe = game_hash[home_away][:players][index][:shoe]
-      if shoe > max_shoe
-        max_shoe = shoe
-        player_rebounds = game_hash[home_away][:players][index][:rebounds]
-        index += 1
-      else 
-        index += 1
+  rebounds = nil
+  game_hash.each do |home_away, inner_hash_keys|
+    inner_hash_keys[:players].each do |player|
+      if player[:shoe] > max_shoe
+        max_shoe = player[:shoe]
+        rebounds = player[:rebounds]
       end 
-    end 
-  end 
-player_rebounds
+    end
+  end
+  rebounds 
 end 
+
+
     
 
 
